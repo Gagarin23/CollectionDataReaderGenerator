@@ -23,8 +23,8 @@ Example:
     public class PrimitiveTypesTableType
     {
         public Guid GuidColumn { get; set; }
-        [Column(Ordinal = 1)]public bool BooleanColumn { get; set; }
-        [Column(ColumnName = "StringColumn")]public string Qwerty { get; set; }
+        [ColumnInfo(Ordinal = 1)]public bool BooleanColumn { get; set; }
+        [ColumnInfo(ColumnName = "StringColumn")]public string Qwerty { get; set; }
         public decimal DecimalColumn { get; set; }
         public double DoubleColumn { get; set; }
         public float FloatColumn { get; set; }
