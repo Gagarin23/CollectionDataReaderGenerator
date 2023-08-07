@@ -93,312 +93,312 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
-namespace {{namespaceName}};
-
-class {{className}}DataReader : DbDataReader
+namespace {{namespaceName}}
 {
-    private readonly IEnumerator<{{className}}> _source;
-    private {{className}} _current;
-
-    public {{className}}DataReader(IEnumerable<{{className}}> source)
+    class {{className}}DataReader : DbDataReader
     {
-        _source = source.GetEnumerator();
-    }
+        private readonly IEnumerator<{{className}}> _source;
+        private {{className}} _current;
 
-    public override DataTable GetSchemaTable()
-    {
-        DataTable schemaTable = new DataTable()
+        public {{className}}DataReader(IEnumerable<{{className}}> source)
         {
-            Columns = {
-                {
-                    "ColumnOrdinal",
-                    typeof (int)
-                },
-                {
-                    "ColumnName",
-                    typeof (string)
-                },
-                {
-                    "DataType",
-                    typeof (Type)
-                },
-                {
-                    "ColumnSize",
-                    typeof (int)
-                },
-                {
-                    "AllowDBNull",
-                    typeof (bool)
-                },
-                {
-                    "IsKey",
-                    typeof (bool)
-                },
-                {
-                    "NumericPrecision",
-                    typeof (short)
-                },
-                {
-                    "NumericScale",
-                    typeof (short)
-                },
-            }
-        };
+            _source = source.GetEnumerator();
+        }
+
+        public override DataTable GetSchemaTable()
+        {
+            DataTable schemaTable = new DataTable()
+            {
+                Columns = {
+                    {
+                        "ColumnOrdinal",
+                        typeof (int)
+                    },
+                    {
+                        "ColumnName",
+                        typeof (string)
+                    },
+                    {
+                        "DataType",
+                        typeof (Type)
+                    },
+                    {
+                        "ColumnSize",
+                        typeof (int)
+                    },
+                    {
+                        "AllowDBNull",
+                        typeof (bool)
+                    },
+                    {
+                        "IsKey",
+                        typeof (bool)
+                    },
+                    {
+                        "NumericPrecision",
+                        typeof (short)
+                    },
+                    {
+                        "NumericScale",
+                        typeof (short)
+                    },
+                }
+            };
 
 {{GetSchemaTableRows(columnProperties)}}
 
-        return schemaTable;
-    }
-    
-    public override bool GetBoolean(int ordinal)
-    {
-        return ordinal switch
+            return schemaTable;
+        }
+        
+        public override bool GetBoolean(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Boolean))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override byte GetByte(int ordinal)
-    {
-        return ordinal switch
+        public override byte GetByte(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Byte))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override long GetBytes(int ordinal, long dataOffset, byte[]? buffer, int bufferOffset, int length)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override char GetChar(int ordinal)
-    {
-        return ordinal switch
+        public override long GetBytes(int ordinal, long dataOffset, byte[]? buffer, int bufferOffset, int length)
         {
+            throw new NotImplementedException();
+        }
+
+        public override char GetChar(int ordinal)
+        {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Char))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
-
-    public override long GetChars(int ordinal, long dataOffset, char[]? buffer, int bufferOffset, int length)
-    {
-        var str = GetString(ordinal);
-        var val2 = str.Length - (int)dataOffset;
-        
-        if (val2 <= 0)
-        {
-            return 0;
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
         }
-        
-        int count = Math.Min(length, val2);
-        str.CopyTo((int) dataOffset, buffer, bufferOffset, count);
-        return (long) count;
-    }
 
-    public override string GetDataTypeName(int ordinal)
-    {
-        return ordinal switch
+        public override long GetChars(int ordinal, long dataOffset, char[]? buffer, int bufferOffset, int length)
         {
+            var str = GetString(ordinal);
+            var val2 = str.Length - (int)dataOffset;
+            
+            if (val2 <= 0)
+            {
+                return 0;
+            }
+            
+            int count = Math.Min(length, val2);
+            str.CopyTo((int) dataOffset, buffer, bufferOffset, count);
+            return (long) count;
+        }
+
+        public override string GetDataTypeName(int ordinal)
+        {
+            return ordinal switch
+            {
 {{GetDataTypeNameSwitchExpression(columnProperties)}}
-            _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
-        };
-    }
+                _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
+            };
+        }
 
-    public override DateTime GetDateTime(int ordinal)
-    {
-        return ordinal switch
+        public override DateTime GetDateTime(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(DateTime))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override decimal GetDecimal(int ordinal)
-    {
-        return ordinal switch
+        public override decimal GetDecimal(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Decimal))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override double GetDouble(int ordinal)
-    {
-        return ordinal switch
+        public override double GetDouble(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Double))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override Type GetFieldType(int ordinal)
-    {
-        return ordinal switch
+        public override Type GetFieldType(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetFieldTypeSwitchExpression(columnProperties)}}
-            _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
-        };
-    }
+                _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
+            };
+        }
 
-    public override float GetFloat(int ordinal)
-    {
-        return ordinal switch
+        public override float GetFloat(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Single))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override Guid GetGuid(int ordinal)
-    {
-        return ordinal switch
+        public override Guid GetGuid(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Guid))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override short GetInt16(int ordinal)
-    {
-        return ordinal switch
+        public override short GetInt16(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Int16))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override int GetInt32(int ordinal)
-    {
-        return ordinal switch
+        public override int GetInt32(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Int32))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override long GetInt64(int ordinal)
-    {
-        return ordinal switch
+        public override long GetInt64(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Int64))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override string GetName(int ordinal)
-    {
-        return ordinal switch
+        public override string GetName(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetNameSwitchExpression(columnProperties)}}
-            _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
-        };
-    }
+                _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
+            };
+        }
 
-    public override int GetOrdinal(string name)
-    {
-        return name switch
+        public override int GetOrdinal(string name)
         {
+            return name switch
+            {
 {{GetOrdinalSwitchExpression(columnProperties)}}
-            _ => throw new ArgumentOutOfRangeException(nameof(name))
-        };
-    }
+                _ => throw new ArgumentOutOfRangeException(nameof(name))
+            };
+        }
 
-    public override string GetString(int ordinal)
-    {
-        return ordinal switch
+        public override string GetString(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(String))}}
-            < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-            _ => throw new InvalidCastException()
-        };
-    }
+                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
+                _ => throw new InvalidCastException()
+            };
+        }
 
-    public override object GetValue(int ordinal)
-    {
-        return ordinal switch
+        public override object GetValue(int ordinal)
         {
+            return ordinal switch
+            {
 {{GetValueSwitchExpression(columnProperties)}}
-            _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
-        };
-    }
+                _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
+            };
+        }
 
-    public override int GetValues(object[] values)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override bool IsDBNull(int ordinal)
-    {
-        return ordinal switch
+        public override int GetValues(object[] values)
         {
+            throw new NotImplementedException();
+        }
+
+        public override bool IsDBNull(int ordinal)
+        {
+            return ordinal switch
+            {
 {{IsDbNullSwitchExpression(columnProperties)}}
-            _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
-        };
-    }
-
-    public override int FieldCount => {{columnProperties.Count}};
-
-    public override object this[int ordinal] => GetValue(ordinal);
-
-    public override object this[string name] => GetValue(GetOrdinal(name));
-
-    public override int RecordsAffected => 0;
-
-    public override bool HasRows
-    {
-        get
-        {
-            var hasValue = _source.MoveNext();
-            _source.Reset();
-            return hasValue;
-        }
-    }
-
-    public override bool IsClosed => false;
-
-    public override bool NextResult()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override bool Read()
-    {
-        if (_source.MoveNext())
-        {
-            _current = _source.Current;
-            return true;
+                _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
+            };
         }
 
-        return false;
-    }
+        public override int FieldCount => {{columnProperties.Count}};
 
-    public override int Depth => 0;
+        public override object this[int ordinal] => GetValue(ordinal);
 
-    public override IEnumerator GetEnumerator()
-    {
-        return _source;
-    }
+        public override object this[string name] => GetValue(GetOrdinal(name));
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        _source.Dispose();
+        public override int RecordsAffected => 0;
+
+        public override bool HasRows
+        {
+            get
+            {
+                var hasValue = _source.MoveNext();
+                _source.Reset();
+                return hasValue;
+            }
+        }
+
+        public override bool IsClosed => false;
+
+        public override bool NextResult()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Read()
+        {
+            if (_source.MoveNext())
+            {
+                _current = _source.Current;
+                return true;
+            }
+
+            return false;
+        }
+
+        public override int Depth => 0;
+
+        public override IEnumerator GetEnumerator()
+        {
+            return _source;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            _source.Dispose();
+        }
     }
 }
-
 """;
 
             context.AddSource($"{className}DataReader.g.cs", SourceText.From(code, Encoding.UTF8));
