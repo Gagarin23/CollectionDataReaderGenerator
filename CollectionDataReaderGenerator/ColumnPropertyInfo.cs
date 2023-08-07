@@ -2,7 +2,7 @@
 
 namespace CollectionDataReaderGenerator;
 
-public class ColumnPropertyInfo
+internal class ColumnPropertyInfo
 {
     public int Ordinal { get; }
     public string ColumnName { get; }

@@ -480,7 +480,7 @@ class {{className}}DataReader : DbDataReader
 
         IEnumerable<ColumnPropertyInfo> targetProps;
 
-        if (props.Any(p =>p.GetAttributes().Any(attr => attr.AttributeClass.Name == nameof(ColumnAttribute))))
+        if (props.Any(p =>p.GetAttributes().Any(attr => attr.AttributeClass.Name == nameof(ColumnInfoAttribute))))
         {
             var propertyIndex = 0;
             targetProps = props
@@ -490,7 +490,7 @@ class {{className}}DataReader : DbDataReader
                     {
                         var targetAttr = p
                             .GetAttributes()
-                            .FirstOrDefault(attr => attr.AttributeClass.Name == nameof(ColumnAttribute));
+                            .FirstOrDefault(attr => attr.AttributeClass.Name == nameof(ColumnInfoAttribute));
 
                         if (targetAttr == null)
                         {
@@ -509,21 +509,21 @@ class {{className}}DataReader : DbDataReader
                         }
 
                         var columnNameProp = targetAttr.NamedArguments
-                            .FirstOrDefault(x => x.Key == nameof(ColumnAttribute.ColumnName));
+                            .FirstOrDefault(x => x.Key == nameof(ColumnInfoAttribute.ColumnName));
 
                         var columnName = columnNameProp.Value.Value as string ?? p.Name;
 
                         var ordinal = targetAttr.NamedArguments
-                            .FirstOrDefault(x => x.Key == nameof(ColumnAttribute.Ordinal))
+                            .FirstOrDefault(x => x.Key == nameof(ColumnInfoAttribute.Ordinal))
                             .Value.Value as int? ?? propertyIndex;
 
                         var numericPrecision = targetAttr.NamedArguments
-                               .FirstOrDefault(x => x.Key == nameof(ColumnAttribute.NumericPrecision))
+                               .FirstOrDefault(x => x.Key == nameof(ColumnInfoAttribute.NumericPrecision))
                                .Value.Value as short?
                            ?? (p.Type.Name == nameof(Decimal) ? (short)18 : (short)0);
 
                         var numericScale = targetAttr.NamedArguments
-                               .FirstOrDefault(x => x.Key == nameof(ColumnAttribute.NumericScale))
+                               .FirstOrDefault(x => x.Key == nameof(ColumnInfoAttribute.NumericScale))
                                .Value.Value as short?
                            ?? (p.Type.Name == nameof(Decimal) ? (short)5 : (short)0);
 

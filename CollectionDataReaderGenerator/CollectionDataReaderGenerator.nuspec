@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DotnetMinistry.CollectionDataReaderGenerator</id>
+    <version>0.0.2</version>
+    <title>Collection DataReader Generator</title>
+    <authors>Belov Ilya</authors>
+    <owners>Belov Ilya</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is a very fast and tiny tool to generate a DataReader for a collection of objects. Attributes do collection to sql table parameter mapping.</description>
+    <releaseNotes>Initial</releaseNotes>
+    <projectUrl>https://github.com/Gagarin23/CollectionDataReaderGenerator</projectUrl>
+    <copyright>Copyright 2023</copyright>
+    <tags>storedprocedure datareader generator</tags>
+	    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard2.0\CollectionDataReaderGenerator.dll" target="lib\netstandard2.0\" />
+    <file src="bin\Release\netstandard2.0\CollectionDataReaderGenerator.dll" target="analyzers/dotnet/cs" />
+  </files>
+</package>
