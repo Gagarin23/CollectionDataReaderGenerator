@@ -412,7 +412,7 @@ namespace {{namespaceName}}
                 p =>
                 {
                     var isNullable = p.TypeSymbol.IsReferenceType || p.TypeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
-                    return $"            schemaTable.Rows.Add({p.Ordinal}, \"{p.ColumnName}\", typeof({p.TypeSymbol.Name}), -1, {isNullable.ToString().ToLower()}, false, {p.NumericPrecision}, {p.NumericScale});";
+                    return $"                schemaTable.Rows.Add({p.Ordinal}, \"{p.ColumnName}\", typeof({p.TypeSymbol.Name}), -1, {isNullable.ToString().ToLower()}, false, {p.NumericPrecision}, {p.NumericScale});";
                 }));
     }
 
@@ -422,7 +422,7 @@ namespace {{namespaceName}}
             .Select(p =>
                 {
                     var isNullable = p.TypeSymbol.IsReferenceType || p.TypeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
-                    return $"            {p.Ordinal} => {(isNullable ? $"_current.{p.SourcePropertyName} is null" : "false")},";
+                    return $"                {p.Ordinal} => {(isNullable ? $"_current.{p.SourcePropertyName} is null" : "false")},";
                 }
             ));
     }
@@ -430,38 +430,38 @@ namespace {{namespaceName}}
     private string GetValueSwitchExpression(ICollection<ColumnPropertyInfo> columnProperties)
     {
         return string.Join("\n", columnProperties
-            .Select(p => $"            {p.Ordinal} => _current.{p.SourcePropertyName},"));
+            .Select(p => $"                {p.Ordinal} => _current.{p.SourcePropertyName},"));
     }
 
     private string GetOrdinalSwitchExpression(ICollection<ColumnPropertyInfo> columnProperties)
     {
         return string.Join("\n", columnProperties
-            .Select(p => $"            \"{p.ColumnName}\"{(p.ColumnName != p.SourcePropertyName ? $" or \"{p.SourcePropertyName}\"": "")} => {p.Ordinal},"));
+            .Select(p => $"                \"{p.ColumnName}\"{(p.ColumnName != p.SourcePropertyName ? $" or \"{p.SourcePropertyName}\"": "")} => {p.Ordinal},"));
     }
 
     private string GetNameSwitchExpression(ICollection<ColumnPropertyInfo> columnProperties)
     {
         return string.Join("\n", columnProperties
-            .Select(p => $"            {p.Ordinal} => \"{p.ColumnName}\","));
+            .Select(p => $"                {p.Ordinal} => \"{p.ColumnName}\","));
     }
 
     private string GetFieldTypeSwitchExpression(ICollection<ColumnPropertyInfo> columnProperties)
     {
         return string.Join("\n", columnProperties
-            .Select(p => $"            {p.Ordinal} => typeof({p.TypeSymbol.Name}),"));
+            .Select(p => $"                {p.Ordinal} => typeof({p.TypeSymbol.Name}),"));
     }
 
     private string GetDataTypeNameSwitchExpression(ICollection<ColumnPropertyInfo> columnProperties)
     {
         return string.Join("\n", columnProperties
-            .Select(p => $"            {p.Ordinal} => nameof({p.TypeSymbol.Name}),"));
+            .Select(p => $"                {p.Ordinal} => nameof({p.TypeSymbol.Name}),"));
     }
 
     private static string GetTypedValueSwitchExpressionByTypeName(ICollection<ColumnPropertyInfo> columnProperties, string typeName)
     {
         return string.Join("\n", columnProperties
             .Where(p => p.TypeSymbol.Name == typeName)
-            .Select(p => $"            {p.Ordinal} => _current.{p.SourcePropertyName},"));
+            .Select(p => $"                {p.Ordinal} => _current.{p.SourcePropertyName},"));
     }
 
     private static ICollection<ColumnPropertyInfo> GetColumnProperties(INamedTypeSymbol classSymbol)
