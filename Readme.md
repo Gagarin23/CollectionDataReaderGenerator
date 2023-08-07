@@ -6,6 +6,8 @@ This is a very fast and tiny tool to generate a DataReader for a collection of o
 - No IL generation
 - Fastest reading by switch case statement
 
+Nuget: https://www.nuget.org/packages/DotnetMinistry.CollectionDataReaderGenerator
+
 
 ## Usage
 One simple use case is set collection like sql stored procedure table parameter.
@@ -23,8 +25,8 @@ Example:
     public class PrimitiveTypesTableType
     {
         public Guid GuidColumn { get; set; }
-        [Column(Ordinal = 1)]public bool BooleanColumn { get; set; }
-        [Column(ColumnName = "StringColumn")]public string Qwerty { get; set; }
+        [ColumnInfo(Ordinal = 1)]public bool BooleanColumn { get; set; }
+        [ColumnInfo(ColumnName = "StringColumn")]public string Qwerty { get; set; }
         public decimal DecimalColumn { get; set; }
         public double DoubleColumn { get; set; }
         public float FloatColumn { get; set; }
