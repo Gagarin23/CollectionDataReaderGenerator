@@ -6,6 +6,8 @@ This is a very fast and tiny tool to generate a DataReader for a collection of o
 - No IL generation
 - Fastest reading by switch case statement
 
+Nuget: https://www.nuget.org/packages/DotnetMinistry.CollectionDataReaderGenerator
+
 
 ## Usage
 One simple use case is set collection like sql stored procedure table parameter.
