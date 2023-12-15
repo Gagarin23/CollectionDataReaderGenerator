@@ -18,7 +18,7 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
         var provider = context.SyntaxProvider
             .CreateSyntaxProvider
             (
-                (s, _) => s is ClassDeclarationSyntax,
+                (s, _) => s is ClassDeclarationSyntax or StructDeclarationSyntax,
                 (ctx, _) => GetClassDeclarationForSourceGen(ctx)
             )
             .Where(t => t.ReportAttributeFound)
@@ -36,12 +36,9 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
         );
     }
 
-    private static (ClassDeclarationSyntax, bool ReportAttributeFound) GetClassDeclarationForSourceGen(GeneratorSyntaxContext context)
+    private static (TypeDeclarationSyntax, bool ReportAttributeFound) GetClassDeclarationForSourceGen(GeneratorSyntaxContext context)
     {
-        var stringData = context.SemanticModel.GetDiagnostics().Select(x => x.ToString());
-        Console.WriteLine(string.Join("\n", stringData));
-
-        var classDeclarationSyntax = (ClassDeclarationSyntax)context.Node;
+        var classDeclarationSyntax = (TypeDeclarationSyntax)context.Node;
 
         foreach (AttributeListSyntax attributeListSyntax in classDeclarationSyntax.AttributeLists)
         foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
@@ -53,7 +50,7 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
 
             string attributeName = attributeSymbol.ContainingType.Name;
 
-            if (attributeName == nameof(DataReaderAttribute))
+            if (attributeName == nameof(GenerateDataReaderAttribute))
             {
                 return (classDeclarationSyntax, true);
             }
@@ -66,7 +63,7 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
     (
         SourceProductionContext context,
         Compilation compilation,
-        ImmutableArray<ClassDeclarationSyntax> classDeclarations
+        ImmutableArray<TypeDeclarationSyntax> classDeclarations
     )
     {
         foreach (var classDeclarationSyntax in classDeclarations)
@@ -80,7 +77,19 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
 
             var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
 
-            var className = classDeclarationSyntax.Identifier.Text;
+            string sourceClassName;
+
+            if (classDeclarationSyntax.Parent?.SyntaxTree != null
+                && compilation.GetSemanticModel(classDeclarationSyntax.Parent?.SyntaxTree).GetDeclaredSymbol(classDeclarationSyntax.Parent) is INamedTypeSymbol parentClassSymbol)
+            {
+                sourceClassName = $"{parentClassSymbol.Name}.{classSymbol.Name}";
+            }
+            else
+            {
+                sourceClassName = classSymbol.Name;
+            }
+
+            var targetClassName = classSymbol.Name;
 
             var columnProperties = GetColumnProperties(classSymbol);
 
@@ -95,12 +104,12 @@ using System.Data.Common;
 
 namespace {{namespaceName}}
 {
-    class {{className}}DataReader : DbDataReader
+    class {{targetClassName}}DataReader : DbDataReader
     {
-        private readonly IEnumerator<{{className}}> _source;
-        private {{className}} _current;
+        private readonly IEnumerator<{{sourceClassName}}> _source;
+        private {{sourceClassName}} _current;
 
-        public {{className}}DataReader(IEnumerable<{{className}}> source)
+        public {{targetClassName}}DataReader(IEnumerable<{{sourceClassName}}> source)
         {
             _source = source.GetEnumerator();
         }
@@ -401,7 +410,7 @@ namespace {{namespaceName}}
 }
 """;
 
-            context.AddSource($"{className}DataReader.g.cs", SourceText.From(code, Encoding.UTF8));
+            context.AddSource($"{sourceClassName}DataReader.g.cs", SourceText.From(code, Encoding.UTF8));
         }
     }
 
