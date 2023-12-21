@@ -164,8 +164,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Boolean))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -174,8 +173,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Byte))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -189,8 +187,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Char))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -223,8 +220,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(DateTime))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -233,8 +229,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Decimal))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -243,8 +238,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Double))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -262,8 +256,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Single))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -272,8 +265,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Guid))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -282,8 +274,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Int16))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -292,8 +283,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Int32))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -302,8 +292,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(Int64))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
@@ -330,8 +319,7 @@ namespace {{namespaceName}}
             return ordinal switch
             {
 {{GetTypedValueSwitchExpressionByTypeName(columnProperties, nameof(String))}}
-                < 0 or > {{columnProperties.Count - 1}} => throw new ArgumentOutOfRangeException(nameof(ordinal)),
-                _ => throw new InvalidCastException()
+                _ => throw new InvalidCastException(),
             };
         }
 
