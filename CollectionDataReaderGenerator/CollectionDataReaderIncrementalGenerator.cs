@@ -104,7 +104,7 @@ using System.Data.Common;
 
 namespace {{namespaceName}}
 {
-    class {{targetClassName}}DataReader : DbDataReader
+    public class {{targetClassName}}DataReader : DbDataReader
     {
         private readonly IEnumerator<{{sourceClassName}}> _source;
         private {{sourceClassName}} _current;
