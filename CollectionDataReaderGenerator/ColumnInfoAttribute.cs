@@ -9,4 +9,5 @@ public class ColumnInfoAttribute : Attribute
     public string? ColumnName { get; set; }
     public short NumericPrecision { get; set; }
     public short NumericScale { get; set; }
+    public int Length { get; set; }
 }

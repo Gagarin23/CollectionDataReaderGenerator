@@ -31,16 +31,16 @@ GO
 
 CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
 (
-    Qwerty varbinary(max),
-       BooleanColumn bit,
-       StringColumn nvarchar(max),
-       DecimalColumn decimal(18, 5),
-       DoubleColumn float,
-       FloatColumn real,
-       IntColumn int,
-       LongColumn bigint,
-       ShortColumn smallint,
-       DateTimeColumn datetime2
+    Qwerty uniqueidentifier,
+    BooleanColumn bit,
+    StringColumn nvarchar(20),
+    DecimalColumn decimal(18, 5),
+    DoubleColumn float,
+    FloatColumn real,
+    IntColumn int,
+    LongColumn bigint,
+    ShortColumn smallint,
+    DateTimeColumn datetime2
 );
 GO
 

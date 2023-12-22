@@ -10,8 +10,9 @@ internal class ColumnPropertyInfo
     public ITypeSymbol TypeSymbol { get; }
     public short NumericPrecision { get; }
     public short NumericScale { get; }
+    public int Length { get; }
 
-    public ColumnPropertyInfo(int ordinal, string columnName, string sourcePropertyName, ITypeSymbol typeSymbol, short numericPrecision, short numericScale)
+    public ColumnPropertyInfo(int ordinal, string columnName, string sourcePropertyName, ITypeSymbol typeSymbol, short numericPrecision, short numericScale, int length)
     {
         Ordinal = ordinal;
         ColumnName = columnName;
@@ -19,5 +20,6 @@ internal class ColumnPropertyInfo
         TypeSymbol = typeSymbol;
         NumericPrecision = numericPrecision;
         NumericScale = numericScale;
+        Length = length;
     }
 }

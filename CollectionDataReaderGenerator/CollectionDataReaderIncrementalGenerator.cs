@@ -38,9 +38,9 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
 
     private static (TypeDeclarationSyntax, bool ReportAttributeFound) GetClassDeclarationForSourceGen(GeneratorSyntaxContext context)
     {
-        var classDeclarationSyntax = (TypeDeclarationSyntax)context.Node;
+        var typeDeclarationSyntax = (TypeDeclarationSyntax)context.Node;
 
-        foreach (AttributeListSyntax attributeListSyntax in classDeclarationSyntax.AttributeLists)
+        foreach (AttributeListSyntax attributeListSyntax in typeDeclarationSyntax.AttributeLists)
         foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
         {
             if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
@@ -52,11 +52,11 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
 
             if (attributeName == nameof(GenerateDataReaderAttribute))
             {
-                return (classDeclarationSyntax, true);
+                return (typeDeclarationSyntax, true);
             }
         }
 
-        return (classDeclarationSyntax, false);
+        return (typeDeclarationSyntax, false);
     }
 
     private void GenerateCode
@@ -164,7 +164,7 @@ GO
 
 CREATE TYPE Generated.{targetClassName} AS TABLE
 (
-    {string.Join(",\n       ", GetColumnNamesAndTypes(columnProperties).Select(x => $"{x.ColumnName} {x.SqlType}"))}
+    {string.Join(",\n   ", GetColumnNamesAndTypes(columnProperties).Select(x => $"{x.ColumnName} {x.SqlType}"))}
 );
 GO
 ";
@@ -180,23 +180,25 @@ GO
                 {
                     sqlType = "uniqueidentifier";
                 }
-
-                sqlType = typeSymbol.SpecialType switch
+                else
                 {
-                    SpecialType.System_Boolean => "bit",
-                    SpecialType.System_Byte => "tinyint",
-                    SpecialType.System_SByte => "smallint",
-                    SpecialType.System_Char => "nchar(1)",
-                    SpecialType.System_Decimal => $"decimal({columnProperty.NumericPrecision}, {columnProperty.NumericScale})",
-                    SpecialType.System_Double => "float",
-                    SpecialType.System_Single => "real",
-                    SpecialType.System_Int32 => "int",
-                    SpecialType.System_Int64 => "bigint",
-                    SpecialType.System_Int16 => "smallint",
-                    SpecialType.System_String => "nvarchar(max)",
-                    SpecialType.System_DateTime => "datetime2",
-                    _ => "varbinary(max)"
-                };
+                    sqlType = typeSymbol.SpecialType switch
+                    {
+                        SpecialType.System_Boolean => "bit",
+                        SpecialType.System_Byte => "tinyint",
+                        SpecialType.System_SByte => "smallint",
+                        SpecialType.System_Char => "nchar(1)",
+                        SpecialType.System_Decimal => $"decimal({columnProperty.NumericPrecision}, {columnProperty.NumericScale})",
+                        SpecialType.System_Double => "float",
+                        SpecialType.System_Single => "real",
+                        SpecialType.System_Int32 => "int",
+                        SpecialType.System_Int64 => "bigint",
+                        SpecialType.System_Int16 => "smallint",
+                        SpecialType.System_String => $"nvarchar({(columnProperty.Length == 0 ? "max" : columnProperty.Length.ToString())})",
+                        SpecialType.System_DateTime => "datetime2",
+                        _ => $"varbinary({(columnProperty.Length == 0 ? "max" : columnProperty.Length.ToString())})"
+                    };
+                }
 
                 var columnName = columnProperty.ColumnName;
 
@@ -610,8 +612,9 @@ namespace {{namespaceName}}
                                 p.Name,
                                 p.Name,
                                 p.Type,
-                                (p.Type.Name == nameof(Decimal) ?(short)18 :(short)0),
-                                (p.Type.Name == nameof(Decimal) ?(short)5 :(short)0)
+                                (p.Type.Name == nameof(Decimal) ? (short)18 :(short)0),
+                                (p.Type.Name == nameof(Decimal) ? (short)5 :(short)0),
+                                0
                             );
 
                             propertyIndex++;
@@ -637,9 +640,13 @@ namespace {{namespaceName}}
                                .Value.Value as short?
                            ?? (p.Type.Name == nameof(Decimal) ? (short)5 : (short)0);
 
+                        var length = targetAttr.NamedArguments
+                            .FirstOrDefault(x => x.Key == nameof(ColumnInfoAttribute.Length))
+                            .Value.Value as int? ?? 0;
+
                         propertyIndex++;
 
-                        return new ColumnPropertyInfo(ordinal, columnName, p.Name, p.Type, numericPrecision, numericScale);
+                        return new ColumnPropertyInfo(ordinal, columnName, p.Name, p.Type, numericPrecision, numericScale, length);
                     }
                 )
                 .OrderBy(p => p.Ordinal);
@@ -659,7 +666,8 @@ namespace {{namespaceName}}
                             p.Name,
                             p.Type,
                             (p.Type.Name == nameof(Decimal) ?(short)18 :(short)0),
-                            (p.Type.Name == nameof(Decimal) ?(short)5 :(short)0)
+                            (p.Type.Name == nameof(Decimal) ?(short)5 :(short)0),
+                            0
                         );
 
                         propertyIndex++;
