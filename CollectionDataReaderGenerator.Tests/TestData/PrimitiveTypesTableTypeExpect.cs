@@ -44,5 +44,7 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
 GO
 
 ";
+
+        public const string TableTypeName = "Generated.PrimitiveTypesTableType";
     }
 }

@@ -131,6 +131,8 @@ namespace {{namespaceName}}
         public const string SqlText = @"
 {{CreateTypeSqlText(targetClassName, columnProperties)}}
 ";
+
+        public const string TableTypeName = "Generated.{{targetClassName}}";
     }
 }
 """;
