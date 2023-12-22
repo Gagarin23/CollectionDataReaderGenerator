@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionDataReaderGenerator", "CollectionDataReaderGenerator\CollectionDataReaderGenerator.csproj", "{5767DEB9-3D18-429A-BDE6-62C33E8C7955}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionDataReaderGenerator.Tests", "CollectionDataReaderGenerator.Tests\CollectionDataReaderGenerator.Tests.csproj", "{EB3CB434-FE64-4438-9DF2-3A25D59711CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{5767DEB9-3D18-429A-BDE6-62C33E8C7955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5767DEB9-3D18-429A-BDE6-62C33E8C7955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5767DEB9-3D18-429A-BDE6-62C33E8C7955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3CB434-FE64-4438-9DF2-3A25D59711CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3CB434-FE64-4438-9DF2-3A25D59711CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3CB434-FE64-4438-9DF2-3A25D59711CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3CB434-FE64-4438-9DF2-3A25D59711CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
