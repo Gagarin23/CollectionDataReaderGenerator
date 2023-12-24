@@ -61,13 +61,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 schemaTable.Rows.Add(0, "Qwerty", typeof(Guid), -1, false, false, 0, 0);
                 schemaTable.Rows.Add(1, "BooleanColumn", typeof(Boolean), -1, false, false, 0, 0);
                 schemaTable.Rows.Add(2, "StringColumn", typeof(String), -1, true, false, 0, 0);
-                schemaTable.Rows.Add(3, "DecimalColumn", typeof(Decimal), -1, false, false, 18, 5);
-                schemaTable.Rows.Add(4, "DoubleColumn", typeof(Double), -1, false, false, 0, 0);
-                schemaTable.Rows.Add(5, "FloatColumn", typeof(Single), -1, false, false, 0, 0);
-                schemaTable.Rows.Add(6, "IntColumn", typeof(Int32), -1, false, false, 0, 0);
-                schemaTable.Rows.Add(7, "LongColumn", typeof(Int64), -1, false, false, 0, 0);
-                schemaTable.Rows.Add(8, "ShortColumn", typeof(Int16), -1, false, false, 0, 0);
-                schemaTable.Rows.Add(9, "DateTimeColumn", typeof(DateTime), -1, false, false, 0, 0);
+                schemaTable.Rows.Add(3, "StringColumn2", typeof(String), -1, true, false, 0, 0);
+                schemaTable.Rows.Add(4, "DecimalColumn", typeof(Decimal), -1, false, false, 18, 5);
+                schemaTable.Rows.Add(5, "DoubleColumn", typeof(Double), -1, false, false, 0, 0);
+                schemaTable.Rows.Add(6, "FloatColumn", typeof(Single), -1, false, false, 0, 0);
+                schemaTable.Rows.Add(7, "IntColumn", typeof(Int32), -1, false, false, 0, 0);
+                schemaTable.Rows.Add(8, "LongColumn", typeof(Int64), -1, false, false, 0, 0);
+                schemaTable.Rows.Add(9, "ShortColumn", typeof(Int16), -1, false, false, 0, 0);
+                schemaTable.Rows.Add(10, "DateTimeColumn", typeof(DateTime), -1, false, false, 0, 0);
 
             return schemaTable;
         }
@@ -126,13 +127,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 0 => nameof(Guid),
                 1 => nameof(Boolean),
                 2 => nameof(String),
-                3 => nameof(Decimal),
-                4 => nameof(Double),
-                5 => nameof(Single),
-                6 => nameof(Int32),
-                7 => nameof(Int64),
-                8 => nameof(Int16),
-                9 => nameof(DateTime),
+                3 => nameof(String),
+                4 => nameof(Decimal),
+                5 => nameof(Double),
+                6 => nameof(Single),
+                7 => nameof(Int32),
+                8 => nameof(Int64),
+                9 => nameof(Int16),
+                10 => nameof(DateTime),
                 _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
             };
         }
@@ -141,7 +143,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                9 => _current.DateTimeColumn,
+                10 => _current.DateTimeColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -150,7 +152,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                3 => _current.DecimalColumn,
+                4 => _current.DecimalColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -159,7 +161,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                4 => _current.DoubleColumn,
+                5 => _current.DoubleColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -171,13 +173,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 0 => typeof(Guid),
                 1 => typeof(Boolean),
                 2 => typeof(String),
-                3 => typeof(Decimal),
-                4 => typeof(Double),
-                5 => typeof(Single),
-                6 => typeof(Int32),
-                7 => typeof(Int64),
-                8 => typeof(Int16),
-                9 => typeof(DateTime),
+                3 => typeof(String),
+                4 => typeof(Decimal),
+                5 => typeof(Double),
+                6 => typeof(Single),
+                7 => typeof(Int32),
+                8 => typeof(Int64),
+                9 => typeof(Int16),
+                10 => typeof(DateTime),
                 _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
             };
         }
@@ -186,7 +189,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                5 => _current.FloatColumn,
+                6 => _current.FloatColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -204,7 +207,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                8 => _current.ShortColumn,
+                9 => _current.ShortColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -213,7 +216,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                6 => _current.IntColumn,
+                7 => _current.IntColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -222,7 +225,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             return ordinal switch
             {
-                7 => _current.LongColumn,
+                8 => _current.LongColumn,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -234,13 +237,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 0 => "Qwerty",
                 1 => "BooleanColumn",
                 2 => "StringColumn",
-                3 => "DecimalColumn",
-                4 => "DoubleColumn",
-                5 => "FloatColumn",
-                6 => "IntColumn",
-                7 => "LongColumn",
-                8 => "ShortColumn",
-                9 => "DateTimeColumn",
+                3 => "StringColumn2",
+                4 => "DecimalColumn",
+                5 => "DoubleColumn",
+                6 => "FloatColumn",
+                7 => "IntColumn",
+                8 => "LongColumn",
+                9 => "ShortColumn",
+                10 => "DateTimeColumn",
                 _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
             };
         }
@@ -252,13 +256,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 "Qwerty" => 0,
                 "BooleanColumn" => 1,
                 "StringColumn" => 2,
-                "DecimalColumn" => 3,
-                "DoubleColumn" => 4,
-                "FloatColumn" => 5,
-                "IntColumn" => 6,
-                "LongColumn" => 7,
-                "ShortColumn" => 8,
-                "DateTimeColumn" => 9,
+                "StringColumn2" => 3,
+                "DecimalColumn" => 4,
+                "DoubleColumn" => 5,
+                "FloatColumn" => 6,
+                "IntColumn" => 7,
+                "LongColumn" => 8,
+                "ShortColumn" => 9,
+                "DateTimeColumn" => 10,
                 _ => throw new ArgumentOutOfRangeException(nameof(name))
             };
         }
@@ -268,6 +273,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
             return ordinal switch
             {
                 2 => _current.StringColumn,
+                3 => _current.StringColumn2,
                 _ => throw new InvalidCastException(),
             };
         }
@@ -279,13 +285,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 0 => _current.Qwerty,
                 1 => _current.BooleanColumn,
                 2 => _current.StringColumn,
-                3 => _current.DecimalColumn,
-                4 => _current.DoubleColumn,
-                5 => _current.FloatColumn,
-                6 => _current.IntColumn,
-                7 => _current.LongColumn,
-                8 => _current.ShortColumn,
-                9 => _current.DateTimeColumn,
+                3 => _current.StringColumn2,
+                4 => _current.DecimalColumn,
+                5 => _current.DoubleColumn,
+                6 => _current.FloatColumn,
+                7 => _current.IntColumn,
+                8 => _current.LongColumn,
+                9 => _current.ShortColumn,
+                10 => _current.DateTimeColumn,
                 _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
             };
         }
@@ -302,18 +309,19 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 0 => false,
                 1 => false,
                 2 => _current.StringColumn is null,
-                3 => false,
+                3 => _current.StringColumn2 is null,
                 4 => false,
                 5 => false,
                 6 => false,
                 7 => false,
                 8 => false,
                 9 => false,
+                10 => false,
                 _ => throw new ArgumentOutOfRangeException(nameof(ordinal))
             };
         }
 
-        public override int FieldCount => 10;
+        public override int FieldCount => 11;
 
         public override object this[int ordinal] => GetValue(ordinal);
 

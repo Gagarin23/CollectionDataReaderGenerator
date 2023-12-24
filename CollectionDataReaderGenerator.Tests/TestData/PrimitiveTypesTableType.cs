@@ -9,6 +9,9 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         public bool BooleanColumn { get; set; }
         [ColumnInfo(Length = 20, Ordinal = 2)]
         public string StringColumn { get; set; }
+
+        [ColumnInfo(SqlType = "varchar(10)")]
+        public string StringColumn2 { get; set; }
         public decimal DecimalColumn { get; set; }
         public double DoubleColumn { get; set; }
         public float FloatColumn { get; set; }

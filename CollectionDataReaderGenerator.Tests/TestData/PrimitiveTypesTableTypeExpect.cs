@@ -10,7 +10,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
             return new PrimitiveTypesTableTypeDataReader(source);
         }
 
-        public const string SqlText = @"
+        public const string CreateTableTypeSqlText = @"
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Generated')
 BEGIN
     EXEC('CREATE SCHEMA Generated');
@@ -18,8 +18,8 @@ END;
 GO
 
 IF EXISTS (
-    SELECT * FROM sys.types 
-    WHERE is_table_type = 1 
+    SELECT * FROM sys.types
+    WHERE is_table_type = 1
     AND name = N'PrimitiveTypesTableType'
     AND schema_id = SCHEMA_ID(N'Generated')
 )
@@ -34,6 +34,7 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
     Qwerty uniqueidentifier,
     BooleanColumn bit,
     StringColumn nvarchar(20),
+    StringColumn2 varchar(10),
     DecimalColumn decimal(18, 5),
     DoubleColumn float,
     FloatColumn real,
@@ -43,9 +44,27 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
     DateTimeColumn datetime2
 );
 GO
-
 ";
 
         public const string TableTypeName = "Generated.PrimitiveTypesTableType";
+
+        public const string TempTableName = "#PrimitiveTypesTableType";
+
+        public const string CreateTempTableSqlText = @"
+CREATE TABLE #PrimitiveTypesTableType (
+    Qwerty uniqueidentifier,
+    BooleanColumn bit,
+    StringColumn nvarchar(20),
+    StringColumn2 varchar(10),
+    DecimalColumn decimal(18, 5),
+    DoubleColumn float,
+    FloatColumn real,
+    IntColumn int,
+    LongColumn bigint,
+    ShortColumn smallint,
+    DateTimeColumn datetime2
+);
+GO
+";
     }
 }

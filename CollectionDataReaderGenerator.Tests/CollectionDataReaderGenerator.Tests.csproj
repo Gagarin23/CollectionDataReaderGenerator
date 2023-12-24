@@ -32,6 +32,9 @@
       <None Include="TestData\PrimitiveTypesTableTypeDataReaderExpect.cs">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="TestData\PrimitiveTypesTableTypeExpect.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <Compile Remove="TestData\PrimitiveTypesTableTypeExpect.cs" />
       <None Include="TestData\PrimitiveTypesTableTypeExpect.cs">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
