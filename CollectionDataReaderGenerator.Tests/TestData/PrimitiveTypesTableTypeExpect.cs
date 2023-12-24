@@ -15,7 +15,6 @@ IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Generated')
 BEGIN
     EXEC('CREATE SCHEMA Generated');
 END;
-GO
 
 IF EXISTS (
     SELECT * FROM sys.types
@@ -27,7 +26,6 @@ BEGIN
     DECLARE @sql NVARCHAR(MAX) = N'DROP TYPE Generated.PrimitiveTypesTableType;';
     EXEC sp_executesql @sql;
 END;
-GO
 
 CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
 (
@@ -43,7 +41,6 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
     ShortColumn smallint,
     DateTimeColumn datetime2
 );
-GO
 ";
 
         public const string TableTypeName = "Generated.PrimitiveTypesTableType";
@@ -64,7 +61,6 @@ CREATE TABLE #PrimitiveTypesTableType (
     ShortColumn smallint,
     DateTimeColumn datetime2
 );
-GO
 ";
     }
 }

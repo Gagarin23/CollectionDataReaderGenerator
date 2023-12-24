@@ -145,7 +145,6 @@ namespace {{namespaceName}}
 CREATE TABLE #{{targetClassName}} (
     {{string.Join(",\n    ", sqlColumns)}}
 );
-GO
 ";
     }
 }
@@ -161,7 +160,6 @@ GO
 BEGIN
     EXEC('CREATE SCHEMA Generated');
 END;
-GO
 
 IF EXISTS (
     SELECT * FROM sys.types
@@ -173,13 +171,11 @@ BEGIN
     DECLARE @sql NVARCHAR(MAX) = N'DROP TYPE Generated.{targetClassName};';
     EXEC sp_executesql @sql;
 END;
-GO
 
 CREATE TYPE Generated.{targetClassName} AS TABLE
 (
     {string.Join(",\n    ", sqlColumns)}
-);
-GO";
+);";
     }
 
     private IEnumerable<(string ColumnName, string SqlType)> GetColumnNamesAndTypes(ICollection<ColumnPropertyInfo> columnProperties)
