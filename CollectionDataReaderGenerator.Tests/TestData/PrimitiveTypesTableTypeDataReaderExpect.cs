@@ -60,8 +60,8 @@ namespace CollectionDataReaderGenerator.Tests.TestData
 
                 schemaTable.Rows.Add(0, "Qwerty", typeof(Guid), -1, false, false, 0, 0);
                 schemaTable.Rows.Add(1, "BooleanColumn", typeof(Boolean), -1, false, false, 0, 0);
-                schemaTable.Rows.Add(2, "StringColumn", typeof(String), -1, true, false, 0, 0);
-                schemaTable.Rows.Add(3, "StringColumn2", typeof(String), -1, true, false, 0, 0);
+                schemaTable.Rows.Add(2, "StringColumn", typeof(String), 20, true, false, 0, 0);
+                schemaTable.Rows.Add(3, "StringColumn2", typeof(String), 10, true, false, 0, 0);
                 schemaTable.Rows.Add(4, "DecimalColumn", typeof(Decimal), -1, false, false, 18, 5);
                 schemaTable.Rows.Add(5, "DoubleColumn", typeof(Double), -1, false, false, 0, 0);
                 schemaTable.Rows.Add(6, "FloatColumn", typeof(Single), -1, false, false, 0, 0);
@@ -362,6 +362,12 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         public override IEnumerator GetEnumerator()
         {
             return _source;
+        }
+
+        public void Reset()
+        {
+            _source.Reset();
+            _current = default;
         }
 
         protected override void Dispose(bool disposing)

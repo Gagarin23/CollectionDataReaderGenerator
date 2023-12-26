@@ -10,6 +10,11 @@ namespace CollectionDataReaderGenerator.Tests.TestData
             return new PrimitiveTypesTableTypeDataReader(source);
         }
 
+        public static PrimitiveTypesTableTypeSqlRecordEnumerator CreateSqlRecordEnumerator(IEnumerable<PrimitiveTypesTableType> source)
+        {
+            return new PrimitiveTypesTableTypeSqlRecordEnumerator(source);
+        }
+
         public const string CreateTableTypeSqlText = @"
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Generated')
 BEGIN

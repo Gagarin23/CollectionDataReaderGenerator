@@ -10,7 +10,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         [ColumnInfo(Length = 20, Ordinal = 2)]
         public string StringColumn { get; set; }
 
-        [ColumnInfo(SqlType = "varchar(10)")]
+        [ColumnInfo(SqlTypeName = "varchar(10)")]
         public string StringColumn2 { get; set; }
         public decimal DecimalColumn { get; set; }
         public double DoubleColumn { get; set; }

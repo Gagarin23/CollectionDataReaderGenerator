@@ -11,7 +11,7 @@ internal class ColumnPropertyInfo
     public short NumericPrecision { get; }
     public short NumericScale { get; }
     public int Length { get; }
-    public string? SqlType { get; }
+    public string? SqlTypeName { get; }
 
     public ColumnPropertyInfo
     (
@@ -22,7 +22,7 @@ internal class ColumnPropertyInfo
         short numericPrecision,
         short numericScale,
         int length,
-        string? sqlType
+        string? sqlTypeName
     )
     {
         Ordinal = ordinal;
@@ -32,6 +32,6 @@ internal class ColumnPropertyInfo
         NumericPrecision = numericPrecision;
         NumericScale = numericScale;
         Length = length;
-        SqlType = sqlType;
+        SqlTypeName = sqlTypeName;
     }
 }
