@@ -41,7 +41,7 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 record.SetString(3, current.StringColumn2);
                 record.SetDecimal(4, current.DecimalColumn);
                 record.SetDouble(5, current.DoubleColumn);
-                record.SetSingle(6, current.FloatColumn);
+                record.SetFloat(6, current.FloatColumn);
                 record.SetInt32(7, current.IntColumn);
                 record.SetInt64(8, current.LongColumn);
                 record.SetInt16(9, current.ShortColumn);

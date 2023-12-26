@@ -180,7 +180,7 @@ namespace {{namespaceName}}
                                 SqlDbType.Char => "Char",
                                 SqlDbType.Decimal => "Decimal",
                                 SqlDbType.Float => "Double",
-                                SqlDbType.Real => "Single",
+                                SqlDbType.Real => "Float",
                                 SqlDbType.Int => "Int32",
                                 SqlDbType.BigInt => "Int64",
                                 SqlDbType.NVarChar => "String",

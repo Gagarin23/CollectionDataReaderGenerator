@@ -36,12 +36,12 @@
       <None Include="TestData\PrimitiveTypesTableTypeDataReaderExpect.cs">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <Compile Remove="TestData\PrimitiveTypesTableTypeSqlDataRecordEnumeratorExpected.cs" />
-      <None Include="TestData\PrimitiveTypesTableTypeSqlDataRecordEnumeratorExpected.cs">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <Compile Remove="TestData\PrimitiveTypesTableType.cs" />
       <None Include="TestData\PrimitiveTypesTableType.cs">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <Compile Remove="TestData\PrimitiveTypesTableTypeSqlDataRecordEnumeratorExpected.cs" />
+      <None Include="TestData\PrimitiveTypesTableTypeSqlDataRecordEnumeratorExpected.cs">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
