@@ -48,7 +48,7 @@ namespace CollectionDataReaderGenerator.Tests
             // All generated files can be found in 'RunResults.GeneratedTrees'.
             var generatedDataReaderFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableTypeDataReader.g.cs"));
             var generatedPartialFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableType.g.cs"));
-            var generatedSqlRecordEnumeratorFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableTypeSqlDataRecordEnumerator.g.cs"));
+            var generatedSqlRecordEnumeratorFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableTypeSqlDataRecordIterator.g.cs"));
 
             // Complex generators should be tested using text comparison.
             Assert.Equal
@@ -63,7 +63,7 @@ namespace CollectionDataReaderGenerator.Tests
             );
             Assert.Equal
             (
-                Regex.Replace(File.ReadAllText("TestData/PrimitiveTypesTableTypeSqlDataRecordEnumeratorExpected.cs"), @"[\r\n\s]", ""),
+                Regex.Replace(File.ReadAllText("TestData/PrimitiveTypesTableTypeSqlDataRecordIterator.cs"), @"[\r\n\s]", ""),
                 Regex.Replace(generatedSqlRecordEnumeratorFileSyntax.GetText().ToString(), @"[\r\n\s]", "")
             );
         }
