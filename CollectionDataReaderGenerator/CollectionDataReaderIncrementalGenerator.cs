@@ -130,11 +130,11 @@ using Microsoft.Data.SqlClient.Server;
 
 namespace {{namespaceName}}
 {
-    public class {{targetClassName}}SqlRecordEnumerator
+    public class {{targetClassName}}SqlDataRecordEnumerator
     {
         private readonly IEnumerator<{{sourceClassName}}> _source;
 
-        public {{targetClassName}}SqlRecordEnumerator(IEnumerable<{{sourceClassName}}> source)
+        public {{targetClassName}}SqlDataRecordEnumerator(IEnumerable<{{sourceClassName}}> source)
         {
             _source = source.GetEnumerator();
         }
@@ -199,7 +199,7 @@ namespace {{namespaceName}}
 }
 """;
 
-        context.AddSource($"{targetClassName}SqlRecordEnumerator.g.cs", SourceText.From(code, Encoding.UTF8));
+        context.AddSource($"{targetClassName}SqlDataRecordEnumerator.g.cs", SourceText.From(code, Encoding.UTF8));
     }
 
     private IEnumerable<(string PropName, SqlDbType SqlDbType, int Ordinal, int Lenght, short Precision, short Scale)> GetPropMetadata(ICollection<ColumnPropertyInfo> columnProperties)
@@ -313,9 +313,9 @@ namespace {{namespaceName}}
             return new {{targetClassName}}DataReader(source);
         }
 
-        public static {{targetClassName}}SqlRecordEnumerator CreateSqlRecordEnumerator(IEnumerable<{{targetClassName}}> source)
+        public static {{targetClassName}}SqlDataRecordEnumerator CreateSqlDataRecordEnumerator(IEnumerable<{{targetClassName}}> source)
         {
-            return new {{targetClassName}}SqlRecordEnumerator(source);
+            return new {{targetClassName}}SqlDataRecordEnumerator(source);
         }
 
         public const string CreateTableTypeSqlText = @"

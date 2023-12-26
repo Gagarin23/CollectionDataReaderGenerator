@@ -6,11 +6,11 @@ using Microsoft.Data.SqlClient.Server;
 
 namespace CollectionDataReaderGenerator.Tests.TestData
 {
-    public class PrimitiveTypesTableTypeSqlRecordEnumerator
+    public class PrimitiveTypesTableTypeSqlDataRecordEnumerator
     {
         private readonly IEnumerator<PrimitiveTypesTableType> _source;
 
-        public PrimitiveTypesTableTypeSqlRecordEnumerator(IEnumerable<PrimitiveTypesTableType> source)
+        public PrimitiveTypesTableTypeSqlDataRecordEnumerator(IEnumerable<PrimitiveTypesTableType> source)
         {
             _source = source.GetEnumerator();
         }

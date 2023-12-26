@@ -10,9 +10,9 @@ namespace CollectionDataReaderGenerator.Tests.TestData
             return new PrimitiveTypesTableTypeDataReader(source);
         }
 
-        public static PrimitiveTypesTableTypeSqlRecordEnumerator CreateSqlRecordEnumerator(IEnumerable<PrimitiveTypesTableType> source)
+        public static PrimitiveTypesTableTypeSqlDataRecordEnumerator CreateSqlDataRecordEnumerator(IEnumerable<PrimitiveTypesTableType> source)
         {
-            return new PrimitiveTypesTableTypeSqlRecordEnumerator(source);
+            return new PrimitiveTypesTableTypeSqlDataRecordEnumerator(source);
         }
 
         public const string CreateTableTypeSqlText = @"

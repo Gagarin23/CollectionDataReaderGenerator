@@ -48,7 +48,7 @@ namespace CollectionDataReaderGenerator.Tests
             // All generated files can be found in 'RunResults.GeneratedTrees'.
             var generatedDataReaderFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableTypeDataReader.g.cs"));
             var generatedPartialFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableType.g.cs"));
-            var generatedSqlRecordEnumeratorFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableTypeSqlRecordEnumerator.g.cs"));
+            var generatedSqlRecordEnumeratorFileSyntax = runResult.GeneratedTrees.Single(t => t.FilePath.EndsWith("PrimitiveTypesTableTypeSqlDataRecordEnumerator.g.cs"));
 
             // Complex generators should be tested using text comparison.
             Assert.Equal
