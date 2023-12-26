@@ -19,17 +19,17 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         {
             var record = new SqlDataRecord
             (
-                new SqlMetaData("Qwerty", SqlDbType.UniqueIdentifier,
-                new SqlMetaData("BooleanColumn", SqlDbType.Bit,
-                new SqlMetaData("StringColumn", SqlDbType.NVarChar, 20,
-                new SqlMetaData("StringColumn2", SqlDbType.VarChar, 10,
-                new SqlMetaData("DecimalColumn", SqlDbType.Decimal, 18, 5,
-                new SqlMetaData("DoubleColumn", SqlDbType.Float,
-                new SqlMetaData("FloatColumn", SqlDbType.Real,
-                new SqlMetaData("IntColumn", SqlDbType.Int,
-                new SqlMetaData("LongColumn", SqlDbType.BigInt,
-                new SqlMetaData("ShortColumn", SqlDbType.SmallInt,
-                new SqlMetaData("DateTimeColumn", SqlDbType.DateTime2
+                new SqlMetaData("Qwerty", SqlDbType.UniqueIdentifier),
+                new SqlMetaData("BooleanColumn", SqlDbType.Bit),
+                new SqlMetaData("StringColumn", SqlDbType.NVarChar, 20),
+                new SqlMetaData("StringColumn2", SqlDbType.VarChar, 10),
+                new SqlMetaData("DecimalColumn", SqlDbType.Decimal, 18, 5),
+                new SqlMetaData("DoubleColumn", SqlDbType.Float),
+                new SqlMetaData("FloatColumn", SqlDbType.Real),
+                new SqlMetaData("IntColumn", SqlDbType.Int),
+                new SqlMetaData("LongColumn", SqlDbType.BigInt),
+                new SqlMetaData("ShortColumn", SqlDbType.SmallInt),
+                new SqlMetaData("DateTimeColumn", SqlDbType.DateTime2)
             );
 
             while (_source.MoveNext())

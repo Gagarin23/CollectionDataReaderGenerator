@@ -157,8 +157,9 @@ namespace {{namespaceName}}
                             }
                         }"
                         + $"{(x.Precision == 0 ? string.Empty : ", " + x.Precision)}"
-                        + $"{(x.Scale == 0 ? string.Empty : ", " + x.Scale)}"))
-
+                        + $"{(x.Scale == 0 ? string.Empty : ", " + x.Scale)}"
+                        + $")")
+                    )
                 }}
             );
 
