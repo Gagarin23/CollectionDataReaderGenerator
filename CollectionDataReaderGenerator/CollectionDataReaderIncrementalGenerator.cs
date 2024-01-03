@@ -451,9 +451,9 @@ CREATE TYPE Generated.{targetClassName} AS TABLE
                     SpecialType.System_Int32 => "int",
                     SpecialType.System_Int64 => "bigint",
                     SpecialType.System_Int16 => "smallint",
-                    SpecialType.System_String => $"nvarchar({(columnProperty.Length == 0 ? "max" : columnProperty.Length.ToString())})",
+                    SpecialType.System_String => $"nvarchar({(columnProperty.Length == -1 ? "max" : columnProperty.Length.ToString())})",
                     SpecialType.System_DateTime => "datetime2",
-                    _ => $"varbinary({(columnProperty.Length == 0 ? "max" : columnProperty.Length.ToString())})"
+                    _ => $"varbinary({(columnProperty.Length == -1 ? "max" : columnProperty.Length.ToString())})"
                 };
             }
 

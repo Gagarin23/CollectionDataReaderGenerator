@@ -7,11 +7,13 @@ namespace CollectionDataReaderGenerator.Tests.TestData
     {
         public Guid Qwerty { get; set; }
         public bool BooleanColumn { get; set; }
-        [ColumnInfo(Length = 20, Ordinal = 2)]
         public string StringColumn { get; set; }
 
         [ColumnInfo(SqlTypeName = "varchar(10)")]
         public string StringColumn2 { get; set; }
+
+        [ColumnInfo(Length = 20, Ordinal = 4)]
+        public string StringColumn3 { get; set; }
         public decimal DecimalColumn { get; set; }
         public double DoubleColumn { get; set; }
         public float FloatColumn { get; set; }

@@ -36,8 +36,9 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
 (
     Qwerty uniqueidentifier,
     BooleanColumn bit,
-    StringColumn nvarchar(20),
+    StringColumn nvarchar(max),
     StringColumn2 varchar(10),
+    StringColumn3 nvarchar(20),
     DecimalColumn decimal(18, 5),
     DoubleColumn float,
     FloatColumn real,
@@ -56,8 +57,9 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
 CREATE TABLE #PrimitiveTypesTableType (
     Qwerty uniqueidentifier,
     BooleanColumn bit,
-    StringColumn nvarchar(20),
+    StringColumn nvarchar(max),
     StringColumn2 varchar(10),
+    StringColumn3 nvarchar(20),
     DecimalColumn decimal(18, 5),
     DoubleColumn float,
     FloatColumn real,

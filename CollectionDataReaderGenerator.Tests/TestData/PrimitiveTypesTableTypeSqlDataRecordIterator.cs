@@ -23,8 +23,9 @@ namespace CollectionDataReaderGenerator.Tests.TestData
             (
                 new SqlMetaData("Qwerty", SqlDbType.UniqueIdentifier),
                 new SqlMetaData("BooleanColumn", SqlDbType.Bit),
-                new SqlMetaData("StringColumn", SqlDbType.NVarChar, 20),
+                new SqlMetaData("StringColumn", SqlDbType.NVarChar, SqlMetaData.Max),
                 new SqlMetaData("StringColumn2", SqlDbType.VarChar, 10),
+                new SqlMetaData("StringColumn3", SqlDbType.NVarChar, 20),
                 new SqlMetaData("DecimalColumn", SqlDbType.Decimal, 18, 5),
                 new SqlMetaData("DoubleColumn", SqlDbType.Float),
                 new SqlMetaData("FloatColumn", SqlDbType.Real),
@@ -40,13 +41,14 @@ namespace CollectionDataReaderGenerator.Tests.TestData
                 record.SetBoolean(1, current.BooleanColumn);
                 record.SetString(2, current.StringColumn);
                 record.SetString(3, current.StringColumn2);
-                record.SetDecimal(4, current.DecimalColumn);
-                record.SetDouble(5, current.DoubleColumn);
-                record.SetFloat(6, current.FloatColumn);
-                record.SetInt32(7, current.IntColumn);
-                record.SetInt64(8, current.LongColumn);
-                record.SetInt16(9, current.ShortColumn);
-                record.SetDateTime(10, current.DateTimeColumn);
+                record.SetString(4, current.StringColumn3);
+                record.SetDecimal(5, current.DecimalColumn);
+                record.SetDouble(6, current.DoubleColumn);
+                record.SetFloat(7, current.FloatColumn);
+                record.SetInt32(8, current.IntColumn);
+                record.SetInt64(9, current.LongColumn);
+                record.SetInt16(10, current.ShortColumn);
+                record.SetDateTime(11, current.DateTimeColumn);
                 yield return record;
             }
         }
