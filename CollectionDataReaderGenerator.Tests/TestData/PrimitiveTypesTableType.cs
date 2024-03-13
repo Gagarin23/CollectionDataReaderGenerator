@@ -2,7 +2,7 @@
 
 namespace CollectionDataReaderGenerator.Tests.TestData
 {
-    [GenerateDataReader]
+    [GenerateDataReader(SchemaName = "Test", TypeName = "Test_Type")]
     public partial struct PrimitiveTypesTableType
     {
         public Guid Qwerty { get; set; }

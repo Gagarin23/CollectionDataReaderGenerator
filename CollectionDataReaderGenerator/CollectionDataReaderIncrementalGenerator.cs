@@ -72,49 +72,67 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
         {
             var semanticModel = compilation.GetSemanticModel(classDeclarationSyntax.SyntaxTree);
 
-            if (semanticModel.GetDeclaredSymbol(classDeclarationSyntax) is not INamedTypeSymbol classSymbol)
+            if (semanticModel.GetDeclaredSymbol(classDeclarationSyntax) is not INamedTypeSymbol typeSymbol)
             {
                 continue;
             }
 
-            var namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
+            var namespaceName = typeSymbol.ContainingNamespace.ToDisplayString();
 
-            string sourceClassName;
+            string sourceTypeName;
 
             if (classDeclarationSyntax.Parent?.SyntaxTree != null
-                && compilation.GetSemanticModel(classDeclarationSyntax.Parent?.SyntaxTree).GetDeclaredSymbol(classDeclarationSyntax.Parent) is INamedTypeSymbol parentClassSymbol)
+                && compilation.GetSemanticModel(classDeclarationSyntax.Parent?.SyntaxTree).GetDeclaredSymbol(classDeclarationSyntax.Parent) is INamedTypeSymbol parentTypeSymbol)
             {
-                sourceClassName = $"{parentClassSymbol.Name}.{classSymbol.Name}";
+                sourceTypeName = $"{parentTypeSymbol.Name}.{typeSymbol.Name}";
             }
             else
             {
-                sourceClassName = classSymbol.Name;
+                sourceTypeName = typeSymbol.Name;
             }
 
-            var targetClassName = classSymbol.Name;
+            var targetTypeName = typeSymbol.Name;
 
-            var columnProperties = GetColumnProperties(classSymbol);
+            var columnProperties = GetColumnProperties(typeSymbol);
+            var sqlTypeInfo = GetSqlTypeInfo(typeSymbol);
 
             GenerateDataReader(context, namespaceName,
-                targetClassName,
-                sourceClassName,
+                targetTypeName,
+                sourceTypeName,
                 columnProperties
             );
 
             GenerateSqlDataRecordEnumerator(context, namespaceName,
-                targetClassName,
-                sourceClassName,
+                targetTypeName,
+                sourceTypeName,
                 columnProperties
             );
 
-            var kind = classSymbol.TypeKind;
+            var kind = typeSymbol.TypeKind;
 
             GeneratePartial(context, namespaceName,
-                targetClassName,
+                targetTypeName,
+                sqlTypeInfo,
                 kind,
                 columnProperties
             );
         }
+    }
+
+    private SqlTypeInfo GetSqlTypeInfo(INamedTypeSymbol typeSymbol)
+    {
+        var generateDataReaderAttribute = typeSymbol.GetAttributes().First(x => x.AttributeClass!.Name == nameof(GenerateDataReaderAttribute));
+        return new SqlTypeInfo
+        {
+            SchemaName = generateDataReaderAttribute.NamedArguments
+                .First(x => x.Key == nameof(GenerateDataReaderAttribute.SchemaName))
+                .Value.Value as string
+            ?? "Generated",
+            TypeName = generateDataReaderAttribute.NamedArguments
+                .First(x => x.Key == nameof(GenerateDataReaderAttribute.TypeName))
+                .Value.Value as string
+            ?? typeSymbol.Name
+        };
     }
 
     private void GenerateSqlDataRecordEnumerator(SourceProductionContext context, string namespaceName, string targetClassName, string sourceClassName, ICollection<ColumnPropertyInfo> columnProperties)
@@ -346,7 +364,15 @@ namespace {{namespaceName}}
         }
     }
 
-    private void GeneratePartial(SourceProductionContext context, string namespaceName, string targetClassName, TypeKind kind, ICollection<ColumnPropertyInfo> columnProperties)
+    private void GeneratePartial
+    (
+        SourceProductionContext context,
+        string namespaceName,
+        string targetClassName,
+        SqlTypeInfo sqlTypeInfo,
+        TypeKind kind,
+        ICollection<ColumnPropertyInfo> columnProperties
+    )
     {
         var sqlColumns = GetColumnNamesAndTypes(columnProperties)
             .Select(x => $"{x.ColumnName} {x.SqlType}")
@@ -376,15 +402,15 @@ namespace {{namespaceName}}
         }
 
         public const string CreateTableTypeSqlText = @"
-{{CreateTypeSqlText(targetClassName, sqlColumns)}}
+{{CreateTypeSqlText(sqlTypeInfo, sqlColumns)}}
 ";
 
-        public const string TableTypeName = "Generated.{{targetClassName}}";
+        public const string TableTypeName = "{{sqlTypeInfo.SchemaName}}.{{sqlTypeInfo.TypeName}}";
 
-        public const string TempTableName = "#{{targetClassName}}";
+        public const string TempTableName = "#{{sqlTypeInfo.TypeName}}";
 
         public const string CreateTempTableSqlText = @"
-CREATE TABLE #{{targetClassName}} (
+CREATE TABLE #{{sqlTypeInfo.TypeName}} (
     {{string.Join(",\n    ", sqlColumns)}}
 );
 ";
@@ -395,26 +421,26 @@ CREATE TABLE #{{targetClassName}} (
         context.AddSource($"{targetClassName}.g.cs", SourceText.From(code, Encoding.UTF8));
     }
 
-    private string CreateTypeSqlText(string targetClassName, List<string> sqlColumns)
+    private string CreateTypeSqlText(SqlTypeInfo sqlTypeInfo, List<string> sqlColumns)
     {
         return
-            $@"IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Generated')
+            $@"IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'{sqlTypeInfo.SchemaName}')
 BEGIN
-    EXEC('CREATE SCHEMA Generated');
+    EXEC('CREATE SCHEMA {sqlTypeInfo.SchemaName}');
 END;
 
 IF EXISTS (
     SELECT * FROM sys.types
     WHERE is_table_type = 1
-    AND name = N'{targetClassName}'
-    AND schema_id = SCHEMA_ID(N'Generated')
+    AND name = N'{sqlTypeInfo.TypeName}'
+    AND schema_id = SCHEMA_ID(N'{sqlTypeInfo.SchemaName}')
 )
 BEGIN
-    DECLARE @sql NVARCHAR(MAX) = N'DROP TYPE Generated.{targetClassName};';
+    DECLARE @sql NVARCHAR(MAX) = N'DROP TYPE {sqlTypeInfo.SchemaName}.{sqlTypeInfo.TypeName};';
     EXEC sp_executesql @sql;
 END;
 
-CREATE TYPE Generated.{targetClassName} AS TABLE
+CREATE TYPE {sqlTypeInfo.SchemaName}.{sqlTypeInfo.TypeName} AS TABLE
 (
     {string.Join(",\n    ", sqlColumns)}
 );";

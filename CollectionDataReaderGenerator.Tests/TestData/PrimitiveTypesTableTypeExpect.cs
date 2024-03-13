@@ -16,23 +16,23 @@ namespace CollectionDataReaderGenerator.Tests.TestData
         }
 
         public const string CreateTableTypeSqlText = @"
-IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Generated')
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'Test')
 BEGIN
-    EXEC('CREATE SCHEMA Generated');
+    EXEC('CREATE SCHEMA Test');
 END;
 
 IF EXISTS (
     SELECT * FROM sys.types
     WHERE is_table_type = 1
-    AND name = N'PrimitiveTypesTableType'
-    AND schema_id = SCHEMA_ID(N'Generated')
+    AND name = N'Test_Type'
+    AND schema_id = SCHEMA_ID(N'Test')
 )
 BEGIN
-    DECLARE @sql NVARCHAR(MAX) = N'DROP TYPE Generated.PrimitiveTypesTableType;';
+    DECLARE @sql NVARCHAR(MAX) = N'DROP TYPE Test.Test_Type;';
     EXEC sp_executesql @sql;
 END;
 
-CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
+CREATE TYPE Test.Test_Type AS TABLE
 (
     Qwerty uniqueidentifier,
     BooleanColumn bit,
@@ -49,12 +49,12 @@ CREATE TYPE Generated.PrimitiveTypesTableType AS TABLE
 );
 ";
 
-        public const string TableTypeName = "Generated.PrimitiveTypesTableType";
+        public const string TableTypeName = "Test.Test_Type";
 
-        public const string TempTableName = "#PrimitiveTypesTableType";
+        public const string TempTableName = "#Test_Type";
 
         public const string CreateTempTableSqlText = @"
-CREATE TABLE #PrimitiveTypesTableType (
+CREATE TABLE #Test_Type (
     Qwerty uniqueidentifier,
     BooleanColumn bit,
     StringColumn nvarchar(max),
