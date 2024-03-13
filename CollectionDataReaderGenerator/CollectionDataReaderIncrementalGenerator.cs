@@ -125,11 +125,11 @@ public class CollectionDataReaderIncrementalGenerator : IIncrementalGenerator
         return new SqlTypeInfo
         {
             SchemaName = generateDataReaderAttribute.NamedArguments
-                .First(x => x.Key == nameof(GenerateDataReaderAttribute.SchemaName))
+                .FirstOrDefault(x => x.Key == nameof(GenerateDataReaderAttribute.SchemaName))
                 .Value.Value as string
             ?? "Generated",
             TypeName = generateDataReaderAttribute.NamedArguments
-                .First(x => x.Key == nameof(GenerateDataReaderAttribute.TypeName))
+                .FirstOrDefault(x => x.Key == nameof(GenerateDataReaderAttribute.TypeName))
                 .Value.Value as string
             ?? typeSymbol.Name
         };
