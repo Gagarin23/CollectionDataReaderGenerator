@@ -1,6 +1,6 @@
 # Collection DataReader Generator
 
-This is a very fast and tiny tool to generate a DataReader for a collection of objects. Attributes do collection to sql table parameter mapping.
+This is a very fast and tiny tool to generate a DataReader and IEnumerable\<SqlDataRecord\> for a collection of objects. Attributes do collection to sql table parameter mapping.
 - Boxing free
 - No reflection
 - No IL generation
