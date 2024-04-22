@@ -9,12 +9,12 @@ namespace CollectionDataReaderGenerator.Bench;
 
 /*
 
-| Method                    | Mean       | Error    | StdDev    | Gen0   | Gen1   | Allocated |
-|-------------------------- |-----------:|---------:|----------:|-------:|-------:|----------:|
-| EntityFramework7OrLower   |   858.8 us | 31.47 us |  44.11 us | 1.9531 | 1.9531 |  46.78 KB |
-| EntityFramework8OrGreater | 7,818.9 us | 78.47 us | 117.45 us |      - |      - |  18.86 KB |
-| CollectionDataReader      | 1,464.5 us | 15.82 us |  23.19 us |      - |      - |  20.93 KB |
-| SqlDataRecordIterator     | 1,449.7 us | 10.19 us |  14.28 us |      - |      - |   9.07 KB |
+| Method                                   | Mean       | Error    | StdDev   | Gen0   | Gen1   | Allocated |
+|----------------------------------------- |-----------:|---------:|---------:|-------:|-------:|----------:|
+| AdhocQuery                               |   787.1 us |  2.88 us |  3.94 us | 1.9531 | 1.9531 |  46.78 KB |
+| ParameterizedJsonQuery                   | 7,183.8 us | 19.92 us | 28.57 us |      - |      - |  18.86 KB |
+| ParameterizedByCollectionDataReaderQuery | 1,370.4 us |  5.14 us |  7.38 us |      - |      - |  20.94 KB |
+| ParameterizedSqlDataRecordIteratorQuery  | 1,365.2 us |  7.19 us | 10.76 us |      - |      - |   9.07 KB |
 
  */
 
@@ -38,10 +38,10 @@ public class MssqlDriverLevelBenchmark
         Setup();
         try
         {
-            await EntityFramework7OrLower();
-            await EntityFramework8OrGreater();
-            await CollectionDataReader();
-            await SqlDataRecordIterator();
+            await AdhocQuery();
+            await ParameterizedJsonQuery();
+            await ParameterizedByCollectionDataReaderQuery();
+            await ParameterizedSqlDataRecordIteratorQuery();
         }
         finally
         {
@@ -64,7 +64,7 @@ public class MssqlDriverLevelBenchmark
     }
 
     [Benchmark]
-    public async Task EntityFramework7OrLower()
+    public async Task AdhocQuery()
     {
         await using var command = _connection.CreateCommand();
         command.CommandText = @$"
@@ -79,7 +79,7 @@ WHERE Id IN (
     }
 
     [Benchmark]
-    public async Task EntityFramework8OrGreater()
+    public async Task ParameterizedJsonQuery()
     {
         await using var command = _connection.CreateCommand();
         command.Parameters.Add(new SqlParameter()
@@ -104,7 +104,7 @@ WHERE EXISTS (
     }
 
     [Benchmark]
-    public async Task CollectionDataReader()
+    public async Task ParameterizedByCollectionDataReaderQuery()
     {
         await using var command = _connection.CreateCommand();
         command.Parameters.Add(new SqlParameter()
@@ -123,7 +123,8 @@ INNER JOIN TestTable ON TestTable.Id = t.Id";
         await using var _ = await command.ExecuteReaderAsync();
     }
 
-    [Benchmark] public async Task SqlDataRecordIterator()
+    [Benchmark]
+    public async Task ParameterizedSqlDataRecordIteratorQuery()
     {
         await using var command = _connection.CreateCommand();
         command.Parameters.Add(new SqlParameter()
