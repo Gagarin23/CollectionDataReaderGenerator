@@ -9,7 +9,7 @@ This is a very fast and tiny tool to generate a DataReader and IEnumerable\<SqlD
 Nuget: https://www.nuget.org/packages/DotnetMinistry.CollectionDataReaderGenerator
 
 Mssql driver level benchmark:\
-![image](https://github.com/Gagarin23/CollectionDataReaderGenerator/assets/59282770/48bc7488-da5b-4adb-b6d0-850ce336911a)
+![image](https://github.com/Gagarin23/CollectionDataReaderGenerator/assets/59282770/77d4d2d8-9487-4c0c-ad5e-2938341fc0e2)
 
 
 ## Usage
