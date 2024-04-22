@@ -1,4 +1,4 @@
-# Collection DataReader Generator
+# Collection DataReader Generator & SqlDataRecord Iterator
 
 This is a very fast and tiny tool to generate a DataReader and IEnumerable\<SqlDataRecord\> for a collection of objects. Attributes do collection to sql table parameter mapping.
 - Boxing free
@@ -7,6 +7,9 @@ This is a very fast and tiny tool to generate a DataReader and IEnumerable\<SqlD
 - Fastest reading by switch case statement
 
 Nuget: https://www.nuget.org/packages/DotnetMinistry.CollectionDataReaderGenerator
+
+Mssql driver level benchmark:\
+![image](https://github.com/Gagarin23/CollectionDataReaderGenerator/assets/59282770/48bc7488-da5b-4adb-b6d0-850ce336911a)
 
 
 ## Usage
